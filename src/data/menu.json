@@ -1,0 +1,324 @@
+[
+  {
+    "id": "espresso",
+    "name": "Espresso",
+    "description": "Court et intense",
+    "basePrice": 1.9,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Simple", "price": 0.0 },
+        { "name": "Double", "price": 0.6 }
+      ]
+    }
+  },
+  {
+    "id": "americano",
+    "name": "Americano",
+    "description": "Allongé",
+    "basePrice": 2.2,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Simple", "price": 0.0 },
+        { "name": "Double", "price": 0.6 }
+      ]
+    }
+  },
+  {
+    "id": "macchiato",
+    "name": "Macchiato",
+    "description": "Latté, sirop caramel",
+    "basePrice": 3.4,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 }
+      ]
+    }
+  },
+  {
+    "id": "flat-white",
+    "name": "Flat White",
+    "description": "Intense, couche de lait",
+    "basePrice": 3.7,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": true,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 }
+      ]
+    }
+  },
+  {
+    "id": "ecureuil",
+    "name": "L'Écureuil",
+    "description": "Intense, sirop noisette, couche de lait",
+    "basePrice": 4.2,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": true,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "iced-macchiato",
+    "name": "Iced Macchiato",
+    "description": "Latté froid, sirop caramel",
+    "basePrice": 4.4,
+    "category": "coffees",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "chauto",
+    "name": "Chauto",
+    "description": "Lait chaud, cacao, sirop vanille",
+    "basePrice": 3.6,
+    "category": "chocolates",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.6 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "chauto-signature",
+    "name": "Chauto Signature",
+    "description": "Lait chaud, cacao, sirop noisette, chantilly",
+    "basePrice": 4.6,
+    "category": "chocolates",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.6 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "matcha-latte",
+    "name": "Matcha Latté",
+    "description": "Poudre de matcha, sirop vanille, mousse de lait onctueuse",
+    "basePrice": 4.4,
+    "category": "chocolates",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "blue-moon-latte",
+    "name": "Blue Moon Latté",
+    "description": "Infusion de fleurs de pois papillon, sirop vanille, lait chaud moussé",
+    "basePrice": 4.5,
+    "category": "chocolates",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "cloud-cocoa",
+    "name": "Cloud Cocoa",
+    "description": "Lait chaud, cacao, mousse de lait aérée, coulis caramel",
+    "basePrice": 4.2,
+    "category": "chocolates",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": true,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.6 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "chauto-fracasse",
+    "name": "Chauto Fracassé",
+    "description": "Lait froid, cacao, sirop noisette, chantilly",
+    "basePrice": 4.8,
+    "category": "iced_drinks",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "iceberg-rouge",
+    "name": "Iceberg Rouge",
+    "description": "Lait froid, coulis framboise, sirop framboise, épaisse couche de lait froide vanillé",
+    "basePrice": 4.9,
+    "category": "iced_drinks",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "iced-matcha-latte",
+    "name": "Iced Matcha Latté",
+    "description": "Matcha frappé, lait froid, sirop vanille",
+    "basePrice": 4.7,
+    "category": "iced_drinks",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": true,
+      "allowsToppings": true,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "iced-blue-macchiato",
+    "name": "Iced Blue Macchiato",
+    "description": "Thé bleu glacé, mousse de lait froide, sirop vanille",
+    "basePrice": 4.6,
+    "category": "iced_drinks",
+    "customization": {
+      "requiresMilk": true,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Moyen", "price": 0.0 },
+        { "name": "Grand", "price": 0.7 },
+        { "name": "Géant", "price": 1.1 }
+      ]
+    }
+  },
+  {
+    "id": "papillon-bleu",
+    "name": "Papillon Bleu",
+    "description": "Infusion aux fleurs de pois papillon",
+    "basePrice": 3.2,
+    "category": "teas",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [{ "name": "Classique", "price": 0.0 }]
+    }
+  },
+  {
+    "id": "tradi-vert",
+    "name": "Tradi Vert",
+    "description": "Poudre de matcha infusée",
+    "basePrice": 3.2,
+    "category": "teas",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [{ "name": "Classique", "price": 0.0 }]
+    }
+  },
+  {
+    "id": "aurore-boreale",
+    "name": "L'Aurore Boréale",
+    "description": "Infusion aux fleurs de pois papillon, infusion framboise",
+    "basePrice": 3.7,
+    "category": "teas",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [{ "name": "Classique", "price": 0.0 }]
+    }
+  },
+  {
+    "id": "london-fog",
+    "name": "London Fog",
+    "description": "Infusion aux fleurs de pois papillon, sirop vanille",
+    "basePrice": 3.8,
+    "category": "teas",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [{ "name": "Classique", "price": 0.0 }]
+    }
+  },
+  {
+    "id": "t-classic",
+    "name": "T Classic",
+    "description": "Framboise, Gingembre, Menthe douce, Thé noir ou Chai",
+    "basePrice": 2.9,
+    "category": "teas",
+    "customization": {
+      "requiresMilk": false,
+      "allowsMilkTexture": false,
+      "allowsToppings": false,
+      "sizes": [
+        { "name": "Framboise", "price": 0.0 },
+        { "name": "Gingembre", "price": 0.0 },
+        { "name": "Menthe douce", "price": 0.0 },
+        { "name": "Thé noir", "price": 0.0 },
+        { "name": "Chai", "price": 0.0 }
+      ]
+    }
+  }
+]
