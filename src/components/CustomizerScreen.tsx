@@ -18,13 +18,10 @@ export const CustomizerScreen: React.FC = () => {
 
   if (!activeProduct) return null;
 
-  // Récupérer l'article existant si on est en mode modification
   const isEditing = editingCartIndex !== null;
   const existingItem = isEditing ? cart[editingCartIndex] : null;
-
   const hasToppings = activeProduct.customization.allowsToppings;
 
-  // --- INITIALISATION INTELLIGENTE DES ÉTATS LOCAUX ---
   const [selectedSize, setSelectedSize] = useState<MenuOption>(
     existingItem
       ? existingItem.selectedSize
@@ -87,7 +84,6 @@ export const CustomizerScreen: React.FC = () => {
     };
 
     if (isEditing) {
-      // On préserve la quantité initiale lors de la modification
       updateCartItem(editingCartIndex, {
         ...productData,
         quantity: existingItem!.quantity,
@@ -111,15 +107,15 @@ export const CustomizerScreen: React.FC = () => {
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={() => setScreen(isEditing ? "cart" : "menu")}
-          className="py-3.5 border-2 border-brand-dark/10 hover:border-brand-dark/30 text-brand-dark font-londrina text-xl rounded-2xl cursor-pointer active:scale-98 transition-transform bg-white"
+          className="py-3.5 border-2 border-brand-dark/10 text-brand-dark font-londrina text-xl rounded-2xl cursor-pointer bg-white"
         >
           Retour
         </button>
         <button
           onClick={handleValidation}
-          className="py-3.5 bg-brand-dark hover:bg-brand-dark/95 text-white font-londrina text-xl rounded-2xl shadow-lg active:scale-98 transition-transform cursor-pointer"
+          className="py-3.5 bg-brand-dark hover:bg-brand-dark/95 text-white font-londrina text-xl rounded-2xl shadow-lg cursor-pointer"
         >
-          {isEditing ? "Mettre à jour" : "Valider l'article"}
+          {isEditing ? "Mettre à jour" : "Valider"}
         </button>
       </div>
     </div>
@@ -134,7 +130,6 @@ export const CustomizerScreen: React.FC = () => {
             : "max-w-2xl flex-col gap-6"
         }`}
       >
-        {/* PANEL DE LA BOISSON */}
         <div className="flex-1 flex flex-col justify-between gap-6">
           <div className="space-y-1">
             <span className="font-londrina text-amber-700 text-lg tracking-wider uppercase block">
@@ -148,7 +143,6 @@ export const CustomizerScreen: React.FC = () => {
             </p>
           </div>
 
-          {/* SÉLECTION TAILLE */}
           <div className="space-y-2">
             <h4 className="font-londrina text-xl text-brand-dark border-b border-brand-dark/10 pb-1">
               Choisir la taille
@@ -170,7 +164,6 @@ export const CustomizerScreen: React.FC = () => {
             </div>
           </div>
 
-          {/* SÉLECTION LAIT */}
           {activeProduct.customization.requiresMilk && (
             <div className="space-y-2">
               <h4 className="font-londrina text-xl text-brand-dark border-b border-brand-dark/10 pb-1">
@@ -195,7 +188,6 @@ export const CustomizerScreen: React.FC = () => {
             </div>
           )}
 
-          {/* SÉLECTION TEXTURE */}
           {activeProduct.customization.allowsMilkTexture && (
             <div className="space-y-2">
               <h4 className="font-londrina text-xl text-brand-dark border-b border-brand-dark/10 pb-1">
@@ -222,7 +214,6 @@ export const CustomizerScreen: React.FC = () => {
           {!hasToppings && renderActionBlock()}
         </div>
 
-        {/* PANEL DES TOPPINGS */}
         {hasToppings && (
           <div className="flex-1 flex flex-col justify-between gap-6 border-t lg:border-t-0 lg:border-l border-brand-dark/10 pt-6 lg:pt-0 lg:pl-8">
             <div className="space-y-2 flex-1">

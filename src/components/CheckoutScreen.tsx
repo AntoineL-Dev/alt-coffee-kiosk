@@ -5,13 +5,15 @@ export const CheckoutScreen: React.FC = () => {
   const cartTotal = useOrderStore((state) => state.getCartTotal());
   const resetOrder = useOrderStore((state) => state.resetOrder);
   const setScreen = useOrderStore((state) => state.setScreen);
-  const orderNumber = useOrderStore((state) => state.orderNumber); // Ajout
-  const customerName = useOrderStore((state) => state.customerName); // Ajout
+  const orderNumber = useOrderStore((state) => state.orderNumber);
+  const customerName = useOrderStore((state) => state.customerName);
 
   const [paymentStatus, setPaymentStatus] = useState<
     "pending" | "processing" | "success"
   >("pending");
-  const [countdown, setCountdown] = useState<number>(5);
+
+  // CORRECTION CHRONO : Passage à 20 secondes avant réinitialisation
+  const [countdown, setCountdown] = useState<number>(20);
 
   const handleSimulatePayment = () => {
     setPaymentStatus("processing");
@@ -39,12 +41,12 @@ export const CheckoutScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-brand-dark text-white p-6 flex flex-col items-center justify-center select-none">
-      {/* CASE 1 : ATTENTE DE LA CARTE */}
+      {/* CASE 1 : ATTENTE DE LA CARTE (NUMÉRO MASQUÉ ICI) */}
       {paymentStatus === "pending" && (
         <div className="w-full max-w-md bg-white text-brand-dark rounded-[2.5rem] p-8 text-center shadow-2xl space-y-8 animate-fade-in">
           <div>
             <span className="font-londrina text-sm text-brand-dark/40 uppercase tracking-widest block mb-1">
-              Commande #{orderNumber}
+              Finalisation
             </span>
             <h2 className="font-londrina text-4xl uppercase tracking-wide">
               Paiement par carte
@@ -62,21 +64,18 @@ export const CheckoutScreen: React.FC = () => {
             <span className="font-londrina text-lg text-brand-dark/60">
               Posez ou insérez votre carte
             </span>
-            <span className="text-[10px] text-brand-dark/30 font-mono uppercase tracking-wider">
-              (Simuler un clic)
-            </span>
           </button>
 
           <button
             onClick={() => setScreen("cart")}
-            className="w-full py-3 border border-brand-dark/10 hover:bg-brand-dark/5 text-brand-dark/60 font-londrina text-lg rounded-xl transition-colors cursor-pointer"
+            className="w-full py-3 border border-brand-dark/10 hover:bg-brand-dark/5 text-brand-dark/60 font-londrina text-lg rounded-xl cursor-pointer"
           >
-            Retour au plateau
+            Retour à la commande
           </button>
         </div>
       )}
 
-      {/* CASE 2 : PROCESSUS */}
+      {/* CASE 2 : CALCULS BANCAIRES */}
       {paymentStatus === "processing" && (
         <div className="w-full max-w-md bg-white text-brand-dark rounded-[2.5rem] p-12 text-center shadow-2xl flex flex-col items-center justify-center gap-6 animate-pulse">
           <div className="w-16 h-16 border-4 border-brand-dark border-t-transparent rounded-full animate-spin"></div>
@@ -91,7 +90,7 @@ export const CheckoutScreen: React.FC = () => {
         </div>
       )}
 
-      {/* CASE 3 : PAIEMENT RÉUSSI MODIFIÉ */}
+      {/* CASE 3 : PAIEMENT RÉUSSI (AFFICHE ENFIN LE NUMÉRO ICI) */}
       {paymentStatus === "success" && (
         <div className="w-full max-w-xl text-center space-y-8 animate-scale-up">
           <div className="w-24 h-24 bg-white text-brand-dark rounded-full flex items-center justify-center text-5xl mx-auto shadow-lg shadow-black/20">
@@ -102,7 +101,7 @@ export const CheckoutScreen: React.FC = () => {
             <h1 className="font-meringue text-4xl sm:text-6xl text-white">
               Merci pour vos p'tits sous, {customerName} !
             </h1>
-            <h2 className="font-londrina text-3xl text-amber-400 tracking-wider uppercase pt-2">
+            <h2 className="font-londrina text-4xl text-amber-400 tracking-wider uppercase pt-2">
               Commande n°{orderNumber} en cuisine
             </h2>
           </div>
