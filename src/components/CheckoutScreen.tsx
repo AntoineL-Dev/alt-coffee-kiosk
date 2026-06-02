@@ -60,7 +60,25 @@ export const CheckoutScreen: React.FC = () => {
             onClick={handleSimulatePayment}
             className="w-full aspect-video border-4 border-dashed border-brand-dark/20 hover:border-brand-dark/40 rounded-2xl flex flex-col items-center justify-center gap-3 cursor-pointer group active:scale-98 transition-all bg-brand-dark/[0.01]"
           >
-            <span className="text-5xl group-hover:animate-pulse">💳</span>
+            <div className="w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center relative shrink-0">
+              <img
+                src="/images/ui/payment.png"
+                alt="Paiement par carte"
+                className="max-w-full max-h-full object-contain group-hover:animate-pulse"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                  if (e.currentTarget.nextElementSibling) {
+                    (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                  }
+                }}
+              />
+              <span
+                className="text-5xl absolute inset-0 items-center justify-center group-hover:animate-pulse"
+                style={{ display: "none" }}
+              >
+                💳
+              </span>
+            </div>
             <span className="font-londrina text-lg text-brand-dark/60">
               Posez ou insérez votre carte
             </span>
@@ -93,8 +111,24 @@ export const CheckoutScreen: React.FC = () => {
       {/* CASE 3 : PAIEMENT RÉUSSI (AFFICHE ENFIN LE NUMÉRO ICI) */}
       {paymentStatus === "success" && (
         <div className="w-full max-w-xl text-center space-y-8 animate-scale-up">
-          <div className="w-24 h-24 bg-white text-brand-dark rounded-full flex items-center justify-center text-5xl mx-auto shadow-lg shadow-black/20">
-            ✓
+          <div className="w-24 h-24 bg-white text-brand-dark rounded-full flex items-center justify-center text-5xl mx-auto shadow-lg shadow-black/20 relative overflow-hidden shrink-0">
+            <img
+              src="/images/ui/success.png"
+              alt="Paiement validé"
+              className="max-w-full max-h-full object-contain p-4"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+                if (e.currentTarget.nextElementSibling) {
+                  (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                }
+              }}
+            />
+            <span
+              className="absolute inset-0 items-center justify-center"
+              style={{ display: "none" }}
+            >
+              ✓
+            </span>
           </div>
 
           <div className="space-y-2">
@@ -116,6 +150,14 @@ export const CheckoutScreen: React.FC = () => {
             <span className="text-white font-bold font-sans text-sm">
               {countdown}s
             </span>
+          </div>
+          <div className="pt-4">
+            <button
+              onClick={() => resetOrder()}
+              className="py-3 px-8 bg-brand-dark/20 hover:bg-brand-dark/40 border border-white/10 text-white font-londrina text-xl rounded-xl shadow-lg cursor-pointer transition-colors"
+            >
+              Terminer maintenant
+            </button>
           </div>
         </div>
       )}

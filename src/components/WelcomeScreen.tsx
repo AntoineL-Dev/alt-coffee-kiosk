@@ -57,9 +57,25 @@ export const WelcomeScreen: React.FC = () => {
               }}
               className="active:scale-98 bg-white/[0.02] hover:bg-white/[0.04] border-2 border-white/10 hover:border-amber-200/50 rounded-[2.5rem] p-10 flex flex-col justify-center items-center gap-6 min-h-[300px] shadow-xl transition-all group cursor-pointer"
             >
-              <span className="text-6xl group-hover:scale-110 transition-transform duration-300">
-                ☕
-              </span>
+              <div className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center relative shrink-0">
+                <img
+                  src="/images/ui/dive-in.png"
+                  alt="Sur place"
+                  className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                    }
+                  }}
+                />
+                <span
+                  className="text-6xl absolute inset-0 items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                  style={{ display: "none" }}
+                >
+                  ☕
+                </span>
+              </div>
               <div className="text-center space-y-1">
                 <span className="block text-4xl font-londrina tracking-wide text-white">
                   Sur place
@@ -77,9 +93,25 @@ export const WelcomeScreen: React.FC = () => {
               }}
               className="active:scale-98 bg-white/[0.02] hover:bg-white/[0.04] border-2 border-white/10 hover:border-amber-200/50 rounded-[2.5rem] p-10 flex flex-col justify-center items-center gap-6 min-h-[300px] shadow-xl transition-all group cursor-pointer"
             >
-              <span className="text-6xl group-hover:scale-110 transition-transform duration-300">
-                🛍️
-              </span>
+              <div className="w-28 h-28 sm:w-40 sm:h-40 flex items-center justify-center relative shrink-0">
+                <img
+                  src="/images/ui/take-away.png"
+                  alt="À emporter"
+                  className="max-w-full max-h-full object-contain scale-110 group-hover:scale-125 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                    }
+                  }}
+                />
+                <span
+                  className="text-6xl absolute inset-0 items-center justify-center scale-110 group-hover:scale-125 transition-transform duration-300"
+                  style={{ display: "none" }}
+                >
+                  🛍️
+                </span>
+              </div>
               <div className="text-center space-y-1">
                 <span className="block text-4xl font-londrina tracking-wide text-white">
                   À emporter

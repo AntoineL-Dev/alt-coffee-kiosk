@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useOrderStore } from "../store/useOrderStore";
 import {
   AVAILABLE_MILKS,
@@ -16,22 +16,20 @@ export const CustomizerScreen: React.FC = () => {
   const updateCartItem = useOrderStore((state) => state.updateCartItem);
   const setScreen = useOrderStore((state) => state.setScreen);
 
-  if (!activeProduct) return null;
-
   const isEditing = editingCartIndex !== null;
   const existingItem = isEditing ? cart[editingCartIndex] : null;
-  const hasToppings = activeProduct.customization.allowsToppings;
+  const hasToppings = activeProduct?.customization.allowsToppings;
 
   const [selectedSize, setSelectedSize] = useState<MenuOption>(
     existingItem
       ? existingItem.selectedSize
-      : activeProduct.customization.sizes[0],
+      : activeProduct?.customization.sizes[0] || { name: "", price: 0 },
   );
 
   const [selectedMilk, setSelectedMilk] = useState<MenuOption | undefined>(
     existingItem
       ? existingItem.selectedMilk
-      : activeProduct.customization.requiresMilk
+      : activeProduct?.customization.requiresMilk
         ? AVAILABLE_MILKS[0]
         : undefined,
   );
@@ -41,7 +39,7 @@ export const CustomizerScreen: React.FC = () => {
   >(
     existingItem
       ? existingItem.selectedMilkTexture
-      : activeProduct.customization.allowsMilkTexture
+      : activeProduct?.customization.allowsMilkTexture
         ? AVAILABLE_MILK_TEXTURES[0]
         : undefined,
   );
@@ -49,6 +47,14 @@ export const CustomizerScreen: React.FC = () => {
   const [selectedToppings, setSelectedToppings] = useState<MenuOption[]>(
     existingItem ? existingItem.selectedToppings : [],
   );
+
+  const [imageError, setImageError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [activeProduct?.id]);
+
+  if (!activeProduct) return null;
 
   const toggleTopping = (topping: MenuOption) => {
     if (selectedToppings.some((t) => t.name === topping.name)) {
@@ -94,7 +100,7 @@ export const CustomizerScreen: React.FC = () => {
   };
 
   const renderActionBlock = () => (
-    <div className="space-y-4 pt-4 border-t border-brand-dark/10 shrink-0">
+    <div className="space-y-4 pt-4 border-t border-brand-dark/10 shrink-0 mt-4 md:mt-0">
       <div className="flex justify-between items-end">
         <span className="font-londrina text-lg text-brand-dark/40 uppercase">
           Total recette
@@ -124,23 +130,34 @@ export const CustomizerScreen: React.FC = () => {
   return (
     <div className="min-h-screen bg-brand-dark text-white p-4 sm:p-8 flex flex-col items-center justify-center select-none overflow-y-auto">
       <div
-        className={`w-full bg-white text-brand-dark rounded-[3rem] p-6 sm:p-10 shadow-2xl flex flex-col transition-all duration-300 ${
+        className={`w-full bg-white text-brand-dark rounded-[3rem] p-6 sm:p-8 shadow-2xl flex flex-col transition-all duration-300 ${
           hasToppings
             ? "max-w-5xl lg:flex-row gap-10 items-stretch"
             : "max-w-2xl flex-col gap-6"
         }`}
       >
         <div className="flex-1 flex flex-col justify-between gap-6">
-          <div className="space-y-1">
-            <span className="font-londrina text-amber-700 text-lg tracking-wider uppercase block">
-              {isEditing ? "*Je change mon mien !" : "*C'est mon mien !"}
-            </span>
-            <h2 className="font-meringue text-3xl sm:text-5xl text-brand-dark leading-tight">
-              {activeProduct.name}
-            </h2>
-            <p className="text-xs sm:text-sm text-brand-dark/60 font-light leading-relaxed pt-1">
-              {activeProduct.description}
-            </p>
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-1 flex-1">
+              <span className="font-londrina text-amber-700 text-lg tracking-wider uppercase block">
+                {isEditing ? "*Je change mon mien !" : "*C'est mon mien !"}
+              </span>
+              <h2 className="font-meringue text-[clamp(1.75rem,5vh,3rem)] text-brand-dark leading-tight">
+                {activeProduct.name}
+              </h2>
+              <p className="text-xs sm:text-sm text-brand-dark/60 font-light leading-relaxed pt-1 max-w-md">
+                {activeProduct.description}
+              </p>
+            </div>
+            
+            {!imageError && (
+              <img
+                src={`/images/drinks/${activeProduct.id}.png`}
+                alt={activeProduct.name}
+                onError={() => setImageError(true)}
+                className="w-24 sm:w-32 aspect-square object-contain drop-shadow-md shrink-0"
+              />
+            )}
           </div>
 
           <div className="space-y-2">
@@ -180,8 +197,7 @@ export const CustomizerScreen: React.FC = () => {
                         : "bg-brand-dark/5 hover:bg-brand-dark/10 text-brand-dark"
                     }`}
                   >
-                    {milk.name}{" "}
-                    {milk.price > 0 && `(+${milk.price.toFixed(2)}€)`}
+                    {milk.name} {milk.price > 0 && `(+${milk.price.toFixed(2)}€)`}
                   </button>
                 ))}
               </div>
@@ -239,7 +255,7 @@ export const CustomizerScreen: React.FC = () => {
                         {isChecked ? "✅ " : "➕ "} {topping.name}
                       </span>
                       <span className="font-sans font-extrabold text-xs text-amber-800 mt-1">
-                        +{topping.price.toFixed(2)}€
+                        +${topping.price.toFixed(2)}€
                       </span>
                     </button>
                   );

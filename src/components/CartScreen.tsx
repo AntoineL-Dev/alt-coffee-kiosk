@@ -56,8 +56,27 @@ export const CartScreen: React.FC = () => {
           <p className="text-amber-400 font-mono text-sm uppercase tracking-wider mt-1">
             Commande pour{" "}
             <span className="text-white font-bold">{customerName}</span> ·{" "}
-            <span className="text-white/60">
-              {orderType === "dine_in" ? "Sur place ☕" : "À emporter 🛍️"}
+            <span className="text-white/60 inline-flex items-center gap-1.5 align-middle">
+              {orderType === "dine_in" ? "Sur place" : "À emporter"}
+              <span className="w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center relative shrink-0">
+                <img
+                  src={orderType === "dine_in" ? "/images/ui/dive-in.png" : "/images/ui/take-away.png"}
+                  alt={orderType === "dine_in" ? "Sur place" : "À emporter"}
+                  className="max-w-full max-h-full object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                    }
+                  }}
+                />
+                <span
+                  className="absolute inset-0 items-center justify-center text-sm sm:text-base leading-none pb-0.5"
+                  style={{ display: "none" }}
+                >
+                  {orderType === "dine_in" ? "☕" : "🛍️"}
+                </span>
+              </span>
             </span>
           </p>
         </div>
@@ -79,7 +98,22 @@ export const CartScreen: React.FC = () => {
               key={`${item.product.id}-${index}`}
               className="bg-white/[0.02] border border-white/5 rounded-3xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
             >
-              <div className="space-y-1 flex-1">
+              
+              <div className="flex items-center gap-6 flex-1">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center shrink-0 hidden sm:flex">
+                  <img
+                    src={`/images/drinks/${item.product.id}.png`}
+                    alt={item.product.name}
+                    className="max-w-full max-h-full object-contain drop-shadow-lg"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      if (e.currentTarget.parentElement) {
+                        e.currentTarget.parentElement.style.display = "none";
+                      }
+                    }}
+                  />
+                </div>
+                <div className="space-y-1 flex-1">
                 <div className="flex items-baseline gap-3">
                   <h3 className="font-meringue text-2xl text-white">
                     {item.product.name}
@@ -111,6 +145,7 @@ export const CartScreen: React.FC = () => {
                   ✏️ Modifier la recette
                 </button>
               </div>
+              </div>
 
               <div className="flex items-center justify-between md:justify-end gap-8 w-full md:w-auto border-t md:border-t-0 border-white/5 pt-4 md:pt-0">
                 <div className="flex items-center bg-white/5 rounded-2xl p-1 border border-white/5">
@@ -122,21 +157,35 @@ export const CartScreen: React.FC = () => {
                     className="w-12 h-12 flex items-center justify-center rounded-xl hover:bg-white/5 cursor-pointer text-white/70"
                   >
                     {item.quantity === 1 ? (
-                      /* ICÔNE DE SUPPRESSION SVG À LA PLACE DE L'ÉMOJI CORBEILLE */
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2.5}
-                        stroke="currentColor"
-                        className="w-5 h-5 text-red-400"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      /* ICÔNE DE SUPPRESSION AVEC FALLBACK SVG */
+                      <div className="w-6 h-6 flex items-center justify-center relative shrink-0">
+                        <img
+                          src="/images/ui/delete.png"
+                          alt="Supprimer"
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                            if (e.currentTarget.nextElementSibling) {
+                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = "block";
+                            }
+                          }}
                         />
-                      </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2.5}
+                          stroke="currentColor"
+                          className="w-5 h-5 text-red-400 absolute inset-0 m-auto"
+                          style={{ display: "none" }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                          />
+                        </svg>
+                      </div>
                     ) : (
                       "−"
                     )}

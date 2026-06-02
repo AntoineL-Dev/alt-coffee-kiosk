@@ -28,7 +28,7 @@ export const App: React.FC = () => {
       activityTimerRef.current = setTimeout(() => {
         setShowTimeoutModal(true);
         setTimeoutCountdown(30);
-      }, 60000); // 1 minute d'inactivité
+      }, 120000); // 2 minutes d'inactivité
     }
   };
 
@@ -92,7 +92,10 @@ export const App: React.FC = () => {
 
       {/* POP-UP INTERNE DE TIMEOUT D'INACTIVITÉ */}
       {showTimeoutModal && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 select-none">
+        <div 
+          className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 select-none" 
+          onClick={() => setShowTimeoutModal(false)}
+        >
           <div className="bg-white text-brand-dark max-w-md w-full p-8 rounded-[2.5rem] text-center space-y-6 shadow-2xl animate-scale-up">
             <h3 className="font-meringue text-3xl text-brand-dark">
               Êtes-vous toujours là ?

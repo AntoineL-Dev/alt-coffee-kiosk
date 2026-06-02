@@ -3,9 +3,7 @@ import type {
   CartItem,
   Product,
   OrderType,
-  MenuOption,
-  AVAILABLE_MILKS,
-  AVAILABLE_MILK_TEXTURES,
+  CategoryId,
 } from "../types/menu";
 
 export type ScreenId =
@@ -24,10 +22,12 @@ interface OrderState {
   editingCartIndex: number | null;
   customerName: string; // Nouveau
   orderNumber: string; // Nouveau
+  activeCategory: CategoryId;
 
   setOrderType: (type: OrderType) => void;
   setCustomerName: (name: string) => void; // Nouveau
   setScreen: (screen: ScreenId) => void;
+  setActiveCategory: (category: CategoryId) => void;
   openCustomizer: (product: Product, index?: number | null) => void;
   addToCart: (item: Omit<CartItem, "quantity"> & { quantity: number }) => void;
   updateCartItem: (index: number, updatedItem: CartItem) => void;
@@ -46,6 +46,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
   editingCartIndex: null,
   customerName: "",
   orderNumber: "",
+  activeCategory: "coffees",
 
   setOrderType: (type) =>
     set({
@@ -57,6 +58,8 @@ export const useOrderStore = create<OrderState>((set, get) => ({
   setCustomerName: (name) => set({ customerName: name }),
 
   setScreen: (screen) => set({ currentScreen: screen }),
+
+  setActiveCategory: (category) => set({ activeCategory: category }),
 
   openCustomizer: (product, index = null) =>
     set({

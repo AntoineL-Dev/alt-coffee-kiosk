@@ -3,15 +3,16 @@ import { useOrderStore } from "../store/useOrderStore";
 import type { CategoryId } from "../types/menu";
 import menuData from "../data/menu.json";
 
-const CATEGORIES: { id: CategoryId; name: string; icon: string }[] = [
-  { id: "coffees", name: "K-Fés", icon: "☕" },
-  { id: "chocolates", name: "Chauchau", icon: "🥛" },
-  { id: "iced_drinks", name: "Givrax", icon: "🥤" },
-  { id: "teas", name: "Les T", icon: "🫖" },
+const CATEGORIES: { id: CategoryId; name: string; icon: string; image: string }[] = [
+  { id: "coffees", name: "K-Fés", icon: "☕", image: "/images/ui/k-fes.png" },
+  { id: "chocolates", name: "Chauchau", icon: "🥛", image: "/images/ui/chauchau.png" },
+  { id: "iced_drinks", name: "Givrax", icon: "🥤", image: "/images/ui/givrax.png" },
+  { id: "teas", name: "Les T", icon: "🫖", image: "/images/ui/les-t.png" },
 ];
 
 export const MenuScreen: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<CategoryId>("coffees");
+  const activeCategory = useOrderStore((state) => state.activeCategory);
+  const setActiveCategory = useOrderStore((state) => state.setActiveCategory);
   const [showAbandonModal, setShowAbandonModal] = useState<boolean>(false);
 
   const openCustomizer = useOrderStore((state) => state.openCustomizer);
@@ -33,13 +34,30 @@ export const MenuScreen: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`w-24 sm:w-32 flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-2xl transition-all cursor-pointer shrink-0 ${
-                activeCategory === cat.id
+              className={`w-24 sm:w-32 flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-2xl transition-all cursor-pointer shrink-0 ${activeCategory === cat.id
                   ? "bg-white text-brand-dark scale-105 shadow-lg"
                   : "text-white/60 hover:text-white hover:bg-white/5"
-              }`}
+                }`}
             >
-              <span className="text-2xl sm:text-4xl mb-1">{cat.icon}</span>
+              <div className="w-10 h-10 sm:w-14 sm:h-14 mb-1 flex items-center justify-center relative shrink-0">
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="max-w-full max-h-full object-contain transition-transform group-hover:scale-105"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    if (e.currentTarget.nextElementSibling) {
+                      (e.currentTarget.nextElementSibling as HTMLElement).style.display = "flex";
+                    }
+                  }}
+                />
+                <span
+                  className="text-2xl sm:text-4xl absolute inset-0 items-center justify-center"
+                  style={{ display: "none" }}
+                >
+                  {cat.icon}
+                </span>
+              </div>
               <span className="font-londrina text-base sm:text-xl tracking-wide text-center leading-tight">
                 {cat.name}
               </span>
@@ -78,7 +96,7 @@ export const MenuScreen: React.FC = () => {
           {filteredProducts.map((product) => (
             <button
               key={product.id}
-              onClick={() => openCustomizer(product as any)}
+              onClick={() => openCustomizer(product as import("../types/menu").Product)}
               /* AJUSTEMENT : Remplacement du p-3 pt-9 par un p-3 pt-4 plus équilibré pour le haut de l'image */
               className="w-full aspect-square bg-white/[0.03] border-2 border-white/5 hover:border-white/20 active:scale-95 rounded-[1.8rem] sm:rounded-[2.5rem] p-3 pt-4 sm:p-4 sm:pt-6 flex flex-col items-center justify-start text-center relative transition-all shadow-sm cursor-pointer group"
             >
